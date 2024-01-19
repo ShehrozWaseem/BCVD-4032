@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: note-service
+spec:
+  selector:
+    app: note
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 80
+  type: NodePort
