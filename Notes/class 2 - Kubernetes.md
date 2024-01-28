@@ -14,6 +14,7 @@
 - kubeproxy is the proxy server that enables access to pods and conts
 - explore more config options on your own
 - pods -> provide run time envr to run a container
+![Alt text](image-8.png)
  
 # N/W N LOAD BALANCING
 - cluster -> multiple nodes -> multiple pods -> multiple container .... AJEEEEEEEB
