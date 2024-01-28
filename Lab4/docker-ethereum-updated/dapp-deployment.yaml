@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: dapp
+  name: dapp
+spec:
+  replicas: 2 
+  selector:
+    matchLabels:
+      io.kompose.service: dapp
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.network/docker-ethereum-default: "true"
+        io.kompose.service: dapp
+    spec:
+      containers:
+        - image: shehroz85waseem/node-with-vol:5.0
+        # - image: schadokar/eth-server:1.0.0
+          name: dapp
+          ports:
+            - containerPort: 4000
+              # hostPort: 4000
+              protocol: TCP
+          env:
+            - name: GANACHE_URL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: node-configmap
+                  key: GANACHE_URL_PORT
+          volumeMounts:
+          - name: node-storage-1
+            mountPath: /mnt
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      volumes:
+      - name: node-storage-1
+        persistentVolumeClaim:
+          claimName: node-claim
+      restartPolicy: Always
+
+        # - image: schadokar/eth-server:1.0.0

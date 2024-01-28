@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node-configmap
+data:
+  GANACHE_URL_PORT: "8545"
+  replica-1: "4000"
+  replica-2: "4001"

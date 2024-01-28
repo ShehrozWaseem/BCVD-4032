@@ -1,0 +1,24 @@
+version: "3"
+services:
+  ganache:
+    image: schadokar/eth-ganache:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile.ganache
+    ports:
+      - "8545:8545"
+  dapp:
+    image: shehroz85waseem/node-with-vol:1.0
+    build: .
+    ports:
+      - "4000:4000"
+    depends_on:
+      - ganache
+
+  react:
+    image: schadokar/eth-react:1.0.0
+    build: ./client
+    ports:
+      - "3000:80"
+    depends_on:
+      - dapp
