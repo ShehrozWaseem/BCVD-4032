@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: node-claim
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: node-storage-class-1  # Reference to the StorageClass
+  resources:
+    requests:
+      storage: 1Gi

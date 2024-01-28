@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: ganache
+  name: ganache
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: ganache
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.network/docker-ethereum-default: "true"
+        io.kompose.service: ganache
+    spec:
+      containers:
+        - image: schadokar/eth-ganache:1.0.0
+          name: ganache
+          ports:
+            - containerPort: 8545
+              hostPort: 8545
+              protocol: TCP
+      restartPolicy: Always
